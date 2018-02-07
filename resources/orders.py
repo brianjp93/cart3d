@@ -8,6 +8,18 @@ logger = logging.getLogger(__name__)
 class Orders():
 
     def __init__(self, parent):
+        """Initialize Orders object.
+
+        Parameters
+        ----------
+        parent : obj
+            The Cart3d object
+
+        Returns
+        -------
+        None
+
+        """
         self.parent = parent
 
     def get(self, **kwargs):

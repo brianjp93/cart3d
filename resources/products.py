@@ -89,7 +89,16 @@ class Products():
         return r
 
     def delete(self, catalog_id):
-        """
+        """Delete a product from 3dcart.
+
+        Parameters
+        ----------
+        catalog_id : int
+
+        Returns
+        -------
+        Response
+
         """
         url = '{}3dCartWebAPI/v1/Products/{}'.format(self.parent.base, catalog_id)
         headers = self.parent.get_headers()
@@ -181,6 +190,16 @@ class Products():
 
     def get_category(self, category_id, **kwargs):
         """Get all products from a specific category
+
+        Paramters
+        ---------
+        category_id : int
+        ...
+
+        Returns
+        -------
+        Response
+
         """
         url = '{}3dCartWebAPI/v1/Categories/{}/Products'.format(self.parent.base, category_id)
         headers = self.parent.get_headers()
@@ -194,7 +213,17 @@ class Products():
         return r
 
     def get_distributor(self, distributor_id, **kwargs):
-        """
+        """Get all products from distributor.
+
+        Parameters
+        ----------
+        distributor_id : int
+        ...
+
+        Returns
+        -------
+        Response
+
         """
         url = '{}3dCartWebAPI/v1/Distributors/{}/Products'.format(self.parent.base, distributor_id)
         headers = self.parent.get_headers()
@@ -208,7 +237,17 @@ class Products():
         return r
 
     def get_manufacturer(self, manufacturer_id, **kwargs):
-        """
+        """Get all products from a manufacturer.
+
+        Parameters
+        ----------
+        manufacturer_id : int
+        ...
+
+        Returns
+        -------
+        Response
+
         """
         url = '{}3dCartWebAPI/v1/Manufacturers/{}/Products'.format(self.parent.base, manufacturer_id)
         headers = self.parent.get_headers()

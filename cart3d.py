@@ -70,7 +70,8 @@ class Cart3d():
         state : str
             Validation string.  Ensure this is returned to you in the redirect
             URI as a parameter.
-        store_uri : The URL of the store you are trying to authorize connection to.
+        store_uri : str
+            The URL of the store you are trying to authorize connection to.
 
         Returns
         -------
