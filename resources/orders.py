@@ -1,4 +1,5 @@
 """
+orders.py
 """
 import logging
 import requests
@@ -130,6 +131,69 @@ class Orders():
         headers = self.parent.get_headers()
         params = {'shipments': shipments}
         r = requests.put(url, headers=headers, params=params)
+        return r
+
+    def create_shipments(self, order_id, **kwargs):
+        """Add a shipment to an order.
+
+        https://apirest.3dcart.com/swagger/ui/index#!/Orders/Orders_Post_0_1_2
+
+        Parameters
+        ----------
+        order_id : int
+        ShipmentFirstName : str
+        ShipmentLastName : str
+        ShipmentID : int
+            optional?
+        ShipmentBoxes : int
+            optional?
+        ShipmentInternalComment : str
+        ShipmentOrderStatus : int
+            optional?
+        ShipmentAddress : str
+            first line of address
+        ShipmentAddress2 : str
+            second line of address
+        ShipmentAlias : str
+            what now
+        ShipmentCity : str
+        ShipmentCompany : str
+        ShipmentCost : float
+        ShipmentCountry : str
+        ShipmentEmail : str
+        ShipmentMethodID : int
+        ShipmentMethodName : str
+        ShipmentShippedDate : str
+            unknown format
+        ShipmentPhone : str
+        ShipmentState : str
+        ShipmentZipCode : str
+        ShipmentTax : float
+        ShipmentWeight : float
+            What units..?
+        ShipmentTrackingCode : str
+        ShipmentUserID : int
+            what.  Why is the documentation for the 3dcart api so god awful.
+        ShipmentNumber : int
+            ???
+            The only thing 3dcart tells me for this is...
+            database reference = orders_shipments.shipment_number
+            wtf does that mean.
+        ShipmentAddressTypeID : int
+            What is this.
+
+        Returns
+        -------
+        Response
+
+        """
+        url = '{}3dCartWebAPI/v1/Orders/{}/Shipments'.format(self.parent.base, order_id)
+        headers = self.parent.get_headers()
+        shipment = {}
+        for kwarg, val in kwargs.items():
+            shipment[kwarg] = val
+        data = {'shipment': shipment}
+        r = requests.post(url, headers=headers, data=data)
         return r
 
     def get_items(self, order_id):
