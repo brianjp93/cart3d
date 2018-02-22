@@ -1,12 +1,12 @@
 # Hello
-Only parts of the product and order api wrapper are written so far
+Only parts of the Product and Order API wrapper are written so far cuz I'm a lazy boi and I don't need them yet.
 
 ## Usage
 
 - Initialize the client.
 ```python
->>> from cart3d import Cart3d
->>> client = Cart3d(<client_id>, <client_secret>, token=<token>, secureURL=<secureURL>)
+>>> import cart3d
+>>> client = cart3d.Client(<client_id>, <client_secret>, token=<token>, secureURL=<secureURL>)
 ```
 
 ### Products
@@ -15,7 +15,7 @@ Only parts of the product and order api wrapper are written so far
 ```python
 >>> r = client.products.get()
 >>> r.json()
-    {... data ...}
+    {... json data ...}
 ```
 
 - Get specific product by SKU

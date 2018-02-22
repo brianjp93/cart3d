@@ -12,7 +12,7 @@ __author__ = 'Brian Perrett'
 __date__ = '2018-01-31'
 
 
-class Cart3d():
+class Client():
     """Base class for connecting to 3DCart.
 
     Contains the methods for authorizing a client account.
