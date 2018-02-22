@@ -13,6 +13,12 @@ __date__ = '2018-01-31'
 
 
 class Cart3d():
+    """Base class for connecting to 3DCart.
+
+    Contains the methods for authorizing a client account.
+    Initializes [Products, Orders, ...] classes as attributes of this object.
+
+    """
 
     base = 'https://apirest.3dcart.com/'
 
