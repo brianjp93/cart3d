@@ -1,7 +1,34 @@
 """
 cart3d.py
+
+The base wrapper file for the 3dcart REST API. Uses files
+    from the resources folder to connect different endpoints
+    in the 3dcart api.
+
+Documentation
+-------------
+https://apirest.3dcart.com/swagger/ui/index#/
+
+Examples
+--------
+# initalize
+>>> import cart3d
+>>> client = cart3d.Client(<client_id>, <client_secret>, access_token=<str>, secure_url=<str>)
+
+# get products
+>>> r = client.products.get()
+>>> r.json()
+
+# get specific SKU
+>>> r = client.products.get(sku='1234')
+>>> r.json()
+
+# get orders
+>>> r = client.orders.get()
+>>> r.json()
+
 """
-from __future__ import absolute_import, print_function, division
+from __future__ import print_function, division
 import logging
 import requests
 import resources
@@ -22,15 +49,18 @@ class Client():
 
     base = 'https://apirest.3dcart.com/'
 
-    def __init__(self, client_id, client_secret, token=None, secureURL=None):
+    def __init__(self, client_id, client_secret, token=None, access_token=None, secure_url=None):
         """Initialize the Cart3d object.
+
+        Only needs one of token/access_token
 
         Parameters
         ----------
         client_id : str
         client_secret : str
         token : str
-        secureURL : str
+        access_token : str
+        secure_url : str
             The https url for the store being accessed.
 
         Returns
@@ -41,7 +71,8 @@ class Client():
         self.client_id = client_id
         self.client_secret = client_secret
         self.token = token
-        self.secureURL = secureURL
+        self.access_token = access_token
+        self.secure_url = secure_url
 
         self.products = resources.Products(self)
         self.orders = resources.Orders(self)
@@ -61,10 +92,13 @@ class Client():
         """
         headers = {
             'Accept': 'application/json',
-            'SecureURL': self.secureURL,
-            'Token': self.token,
+            'SecureURL': self.secure_url,
             'PrivateKey': self.client_secret
         }
+        if self.token is not None:
+            headers['Token'] = self.token
+        elif self.access_token is not None:
+            headers['Authorization'] = 'Bearer {}'.format(self.access_token)
         return headers
 
     def get_auth_code(self, redirect_uri, state, store_url=None):
@@ -94,6 +128,8 @@ class Client():
         }
         if store_url is not None:
             params['store_url'] = store_url
+        else:
+            params['store_url'] = self.secure_url
         r = requests.get(url, params=params)
         return r
 
@@ -124,6 +160,8 @@ class Client():
         }
         if store_url is not None:
             params['store_url'] = store_url
+        else:
+            params['store_url'] = self.secure_url
         req = requests.Request('POST', url, params=params)
         prepped = req.prepare()
         return prepped.url

@@ -25,7 +25,7 @@ class Orders():
 
     def get(self, **kwargs):
         """Get list of orders.
-
+        
         Parameters
         ----------
         invoicenumber : int
@@ -50,7 +50,21 @@ class Orders():
         -------
         Response
 
+        Notes
+        -----
+        Date starts and ends are inclusive.
+
+        Examples
+        --------
+        >>> r = client.orders.get()
+        >>> r.json()
+            [{order_data}, {order_data}, ...]
+
         """
+        allowed_params = {
+            'datestart', 'dateend', 'invoicenumber', 'orderstatus',
+            'limit', 'offset', 'countonly', 'lastupdatestart', 'lastupdateend',
+        }
         url = '{}3dCartWebAPI/v1/Orders'.format(self.parent.base)
         headers = self.parent.get_headers()
         params = {
@@ -58,7 +72,12 @@ class Orders():
             'offset': 1
         }
         for kwarg, val in kwargs.items():
-            params[kwarg] = val
+            if kwarg in allowed_params:
+                # only add kwarg to params if its value is not None
+                if val is not None:
+                    params[kwarg] = val
+            else:
+                raise ValueError('{} is not a valid parameter of this function.'.format(kwarg))
         r = requests.get(url, headers=headers, params=params)
         return r
 

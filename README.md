@@ -4,9 +4,10 @@ Only parts of the Product and Order API wrapper are written so far cuz I'm a laz
 ## Usage
 
 - Initialize the client.
+- Either access_token or token can be given.
 ```python
 >>> import cart3d
->>> client = cart3d.Client(<client_id>, <client_secret>, token=<token>, secureURL=<secureURL>)
+>>> client = cart3d.Client(<client_id>, <client_secret>, token=<token>, access_token=<access_token>, secureURL=<secureURL>)
 ```
 
 ### Products
