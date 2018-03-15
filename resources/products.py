@@ -1,6 +1,7 @@
 """
 products.py
 """
+import json
 import logging
 import requests
 
@@ -85,8 +86,7 @@ class Products():
         """
         url = '{}3dCartWebAPI/v1/Products'.format(self.parent.base)
         headers = self.parent.get_headers()
-        data = {'products': body}
-        r = requests.put(url, data=body, headers=headers)
+        r = requests.put(url, json=body, headers=headers)
         return r
 
     def delete(self, catalog_id):
@@ -169,7 +169,7 @@ class Products():
         url = '{}3dCartWebAPI/v1/Products/{}/AdvancedOptions'.format(self.parent.base, catalog_id)
         headers = self.parent.get_headers()
         data = {'advanced_options': advanced_options}
-        r = requests.put(url, headers=headers, data=data)
+        r = requests.put(url, headers=headers, json=data)
         return r
 
     def get_images(self, catalog_id):

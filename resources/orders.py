@@ -68,7 +68,7 @@ class Orders():
         url = '{}3dCartWebAPI/v1/Orders'.format(self.parent.base)
         headers = self.parent.get_headers()
         params = {
-            'limit': 300,
+            'limit': 100,
             'offset': 1
         }
         for kwarg, val in kwargs.items():
@@ -95,8 +95,7 @@ class Orders():
         """
         url = '{}3dCartWebAPI/v1/Orders'.format(self.parent.base)
         headers = self.parent.get_headers()
-        data = {'orders': orders}
-        r = requests.put(url, data=data, headers=headers)
+        r = requests.put(url, json=orders, headers=headers)
         return r
 
     def get_id(self, order_id):
@@ -148,8 +147,7 @@ class Orders():
         """
         url = '{}3dCartWebAPI/v1/Orders/{}/Shipments'.format(self.parent.base, order_id)
         headers = self.parent.get_headers()
-        params = {'shipments': shipments}
-        r = requests.put(url, headers=headers, params=params)
+        r = requests.put(url, headers=headers, json=shipments)
         return r
 
     def create_shipments(self, order_id, **kwargs):
@@ -211,8 +209,7 @@ class Orders():
         shipment = {}
         for kwarg, val in kwargs.items():
             shipment[kwarg] = val
-        data = {'shipment': shipment}
-        r = requests.post(url, headers=headers, data=data)
+        r = requests.post(url, headers=headers, json=shipment)
         return r
 
     def get_items(self, order_id):

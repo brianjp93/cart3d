@@ -93,7 +93,8 @@ class Client():
         headers = {
             'Accept': 'application/json',
             'SecureURL': self.secure_url,
-            'PrivateKey': self.client_secret
+            'PrivateKey': self.client_secret,
+            'Content-Type': 'application/json',
         }
         if self.token is not None:
             headers['Token'] = self.token
