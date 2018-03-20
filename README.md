@@ -25,3 +25,26 @@ Only parts of the Product and Order API wrapper are written so far cuz I'm a laz
 >>> r.json()
     {... json data ...}
 ```
+
+- Update product inventory
+```python
+>>> data = [
+        {
+            'SKUInfo': {
+                'CatalogID': 9,
+                'Stock': 20,
+                'Price': 15.99
+            }
+        },
+        {
+            'SKUInfo': {
+                'CatalogID': 10,
+                'Stock': 10,
+                'Price': 20.99
+            }
+        }
+    ]
+>>> r = client.products.update(data)
+>>> r.json()
+    {... json data ...}
+```
